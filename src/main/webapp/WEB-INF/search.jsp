@@ -39,7 +39,7 @@
 					<td>${task.title}</td>
 				</tr>
 			</c:forEach>
-			<tr><a href="/catalog/admin">back to list</a></tr>
+			<tr><a href="/admin">back to list</a></tr>
 		</table>
 	</div>
 </body>

@@ -39,7 +39,7 @@
 					<td><input type="submit" value="Submit" /></td>
 				</tr>
 			</table>
-			<a href="/catalog/">to start page</a>
+			<a href="/">to start page</a>
 		</div>
 	</form:form>
 </body>

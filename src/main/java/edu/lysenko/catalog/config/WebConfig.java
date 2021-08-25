@@ -55,15 +55,16 @@ public class WebConfig implements WebMvcConfigurer {
 	}
 
 	@Bean
-	public PasswordEncoder encoder() {
-		return new BCryptPasswordEncoder();
-	}
-
-	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver bean = new InternalResourceViewResolver();
 		bean.setPrefix("/WEB-INF/");
 		bean.setSuffix(".jsp");
 		return bean;
 	}
+
+	@Bean
+	public PasswordEncoder encoder() {
+		return new BCryptPasswordEncoder();
+	}
+
 }

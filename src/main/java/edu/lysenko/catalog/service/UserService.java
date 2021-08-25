@@ -41,8 +41,11 @@ public class UserService {
 	}
 
 	public String delete(User user) {
-		User userDb = userDao.getById(user.getId());
-		userDao.deleteById(userDb.getId());
+		if (userDao.getById(UserService.getId()).getRole().equals(Role.ADMIN)) {
+			User userDb = userDao.getById(user.getId());
+			userDao.deleteFromUsersTasksByUserId(userDb.getId());
+			userDao.deleteById(userDb.getId());
+		}
 		return "redirect:/admin";
 	}
 

@@ -45,7 +45,7 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="/catalog/">log out</a> <a href="/catalog/task">add task</a>
+		<a href="/">log out</a> <a href="/task">add task</a>
 	</div>
 </body>
 </html>

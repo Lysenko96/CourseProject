@@ -23,7 +23,7 @@
 		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
 		crossorigin="anonymous"></script>
 	<div align="center">
-		<a href="/catalog/login">login</a> <a href="/catalog/register">register</a>
+		<a href="/login">login</a> <a href="/register">register</a>
 	</div>
 </body>
 </html>

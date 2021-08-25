@@ -18,13 +18,12 @@ import edu.lysenko.catalog.entity.User;
 @Component
 public class JdbcUserDao implements UserDao {
 
-	// add sql search for name
-
 	private static final String ADD_USER = "INSERT INTO users (email, password, name, surname, role) VALUES (?,?,?,?,?)";
 	private static final String GET_USER = "SELECT * FROM users WHERE id=?";
 	private static final String GET_ALL_USERS = "SELECT * FROM users";
 	private static final String UPDATE_USER = "UPDATE users SET email=?, password=?, name=?, surname=?, role=? WHERE id=?";
 	private static final String DELETE_USER = "DELETE FROM users WHERE id=?";
+	private static final String DELETE_USER_FROM_USERSTASKS_BY_USER_ID = "DELETE FROM users_tasks WHERE user_id=?";
 	private static final String GET_USER_BY_EMAIL = "SELECT * FROM users WHERE email=?";
 
 	private Logger log = Logger.getLogger(JdbcUserDao.class.getName());
@@ -36,6 +35,10 @@ public class JdbcUserDao implements UserDao {
 	public JdbcUserDao(PasswordEncoder encoder, JdbcTemplate jdbcTemplate) {
 		this.encoder = encoder;
 		this.jdbcTemplate = jdbcTemplate;
+	}
+
+	public void deleteFromUsersTasksByUserId(int id) {
+		jdbcTemplate.update(DELETE_USER_FROM_USERSTASKS_BY_USER_ID, id);
 	}
 
 	@Override

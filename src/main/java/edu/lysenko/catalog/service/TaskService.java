@@ -23,8 +23,6 @@ public class TaskService {
 		this.userDao = userDao;
 	}
 
-	// add link for user
-
 	public String add(Task task, int userId) {
 		try {
 			if (UserService.getId() == userId || userDao.getById(UserService.getId()).getRole().equals(Role.ADMIN)) {
