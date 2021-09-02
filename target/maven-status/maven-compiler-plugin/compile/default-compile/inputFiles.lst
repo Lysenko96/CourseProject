@@ -1,0 +1,14 @@
+/home/gweep/Documents/SimpleExamples/betaCourse/src/main/java/edu/lysenko/catalog/service/TaskService.java
+/home/gweep/Documents/SimpleExamples/betaCourse/src/main/java/edu/lysenko/catalog/entity/Role.java
+/home/gweep/Documents/SimpleExamples/betaCourse/src/main/java/edu/lysenko/catalog/dao/hibernate/HibernateTaskDao.java
+/home/gweep/Documents/SimpleExamples/betaCourse/src/main/java/edu/lysenko/catalog/config/AppInit.java
+/home/gweep/Documents/SimpleExamples/betaCourse/src/main/java/edu/lysenko/catalog/util/HibernateUtil.java
+/home/gweep/Documents/SimpleExamples/betaCourse/src/main/java/edu/lysenko/catalog/controller/UserController.java
+/home/gweep/Documents/SimpleExamples/betaCourse/src/main/java/edu/lysenko/catalog/config/WebConfig.java
+/home/gweep/Documents/SimpleExamples/betaCourse/src/main/java/edu/lysenko/catalog/dao/hibernate/HibernateUserDao.java
+/home/gweep/Documents/SimpleExamples/betaCourse/src/main/java/edu/lysenko/catalog/entity/Task.java
+/home/gweep/Documents/SimpleExamples/betaCourse/src/main/java/edu/lysenko/catalog/entity/User.java
+/home/gweep/Documents/SimpleExamples/betaCourse/src/main/java/edu/lysenko/catalog/dao/UserDao.java
+/home/gweep/Documents/SimpleExamples/betaCourse/src/main/java/edu/lysenko/catalog/controller/TaskController.java
+/home/gweep/Documents/SimpleExamples/betaCourse/src/main/java/edu/lysenko/catalog/service/UserService.java
+/home/gweep/Documents/SimpleExamples/betaCourse/src/main/java/edu/lysenko/catalog/dao/TaskDao.java

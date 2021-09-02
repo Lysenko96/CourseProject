@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.lysenko.catalog.dao.jdbc.HibernateTaskDao;
-import edu.lysenko.catalog.dao.jdbc.HibernateUserDao;
+import edu.lysenko.catalog.dao.hibernate.HibernateTaskDao;
+import edu.lysenko.catalog.dao.hibernate.HibernateUserDao;
 import edu.lysenko.catalog.entity.Task;
 import edu.lysenko.catalog.service.TaskService;
 

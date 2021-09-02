@@ -7,8 +7,8 @@ import java.util.List;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
-import edu.lysenko.catalog.dao.jdbc.HibernateTaskDao;
-import edu.lysenko.catalog.dao.jdbc.HibernateUserDao;
+import edu.lysenko.catalog.dao.hibernate.HibernateTaskDao;
+import edu.lysenko.catalog.dao.hibernate.HibernateUserDao;
 import edu.lysenko.catalog.entity.Role;
 import edu.lysenko.catalog.entity.Task;
 import edu.lysenko.catalog.entity.User;

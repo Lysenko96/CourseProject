@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
 import edu.lysenko.catalog.config.WebConfig;
-import edu.lysenko.catalog.dao.jdbc.HibernateUserDao;
+import edu.lysenko.catalog.dao.hibernate.HibernateUserDao;
 import edu.lysenko.catalog.entity.Role;
 import edu.lysenko.catalog.entity.Task;
 import edu.lysenko.catalog.entity.User;

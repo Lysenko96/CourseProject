@@ -1,4 +1,4 @@
-package edu.lysenko.catalog.dao.jdbc;
+package edu.lysenko.catalog.dao.hibernate;
 
 import java.util.List;
 
