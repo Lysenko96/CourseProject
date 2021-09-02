@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-configuration>
+	<session-factory>
+		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://eu-cdbr-west-01.cleardb.com:3306/heroku_41749ab237be1d7?useSSL=false
+		</property>
+		<property name="connection.username">b0b22c2ae3eb2a</property>
+		<property name="connection.password">42153608</property>
+	<property name="connection.pool_size">1</property>
+		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		<property name="show_sql">true</property>
+		<property name="current_session_context_class">thread</property>
+		<property name="hdm2ddl.auto">create-drop</property>
+		<mapping class="edu.lysenko.catalog.entity.Task" />
+		<mapping class="edu.lysenko.catalog.entity.User" />
+		<mapping class="edu.lysenko.catalog.entity.Role" />
+	</session-factory>
+</hibernate-configuration>

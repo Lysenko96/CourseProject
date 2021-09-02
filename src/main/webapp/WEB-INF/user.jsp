@@ -25,7 +25,7 @@
 	<div align="center">
 		<h1>Task list</h1>
 		<form method="get" action="search">
-			<input type="text" name="keyword" /> &nbsp; <input type="submit"
+			<input type="text" name="tag" /> &nbsp; <input type="submit"
 				value="Search" />
 		</form>
 		<table border="1" cellpadding="19">

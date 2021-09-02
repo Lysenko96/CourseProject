@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.lysenko.catalog.dao.jdbc.JdbcUserDao;
+import edu.lysenko.catalog.dao.jdbc.HibernateUserDao;
 import edu.lysenko.catalog.entity.User;
 import edu.lysenko.catalog.service.UserService;
 
 @Controller
 public class UserController {
 
-	private JdbcUserDao userDao;
+	private HibernateUserDao userDao;
 	private UserService userService;
 
-	public UserController(JdbcUserDao userDao, UserService userService) {
+	public UserController(HibernateUserDao userDao, UserService userService) {
 		this.userDao = userDao;
 		this.userService = userService;
 	}

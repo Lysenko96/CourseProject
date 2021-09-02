@@ -1,25 +1,33 @@
 package edu.lysenko.catalog.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.WebApplicationContext;
 
-import edu.lysenko.catalog.dao.jdbc.JdbcUserDao;
+import edu.lysenko.catalog.config.WebConfig;
+import edu.lysenko.catalog.dao.jdbc.HibernateUserDao;
 import edu.lysenko.catalog.entity.Role;
+import edu.lysenko.catalog.entity.Task;
 import edu.lysenko.catalog.entity.User;
 
 @Service
 public class UserService {
 
-	private JdbcUserDao userDao;
+	WebApplicationContext context;
+
+	private HibernateUserDao userDao;
+	private TaskService taskService;
 	private static int id;
 
-	public UserService(JdbcUserDao userDao) {
+	public UserService(HibernateUserDao userDao, WebApplicationContext context, TaskService taskService) {
+		this.context = context;
+		this.context.getBean(WebConfig.class).createSchema();
 		this.userDao = userDao;
+		this.taskService = taskService;
 	}
 
 	public String add(User user) {
-		User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPassword());
 		if (user.getRole() != null && !user.getEmail().isEmpty() && !user.getPassword().isEmpty()
-				&& !user.getName().isEmpty() && !user.getSurname().isEmpty() && userDb == null) {
+				&& !user.getName().isEmpty() && !user.getSurname().isEmpty()) {
 			userDao.add(user);
 		}
 		if (user.getRole() == null || user.getPassword().isEmpty() || user.getName().isEmpty()
@@ -30,20 +38,19 @@ public class UserService {
 	}
 
 	public String update(User user) {
-		User userDb = userDao.findUserByEmail(user.getEmail());
-		if (user.getRole() != null && !user.getPassword().isEmpty() && !user.getEmail().isEmpty()
-				&& !user.getName().isEmpty() && !user.getSurname().isEmpty() && userDb == null) {
+		if (user.getRole() != null && userDao.getById(id).getRole().equals(Role.ADMIN) && !user.getPassword().isEmpty()
+				&& !user.getEmail().isEmpty() && !user.getName().isEmpty() && !user.getSurname().isEmpty()) {
 			userDao.update(user);
-		} else {
-			return "redirect:/edit?id=" + userDb.getId();
 		}
 		return "redirect:/admin";
 	}
 
 	public String delete(User user) {
-		if (userDao.getById(UserService.getId()).getRole().equals(Role.ADMIN)) {
+		if (userDao.getById(id).getRole().equals(Role.ADMIN)) {
 			User userDb = userDao.getById(user.getId());
-			userDao.deleteFromUsersTasksByUserId(userDb.getId());
+			for (Task task : userDb.getTasks()) {
+				taskService.delete(task, user.getId());
+			}
 			userDao.deleteById(userDb.getId());
 		}
 		return "redirect:/admin";
@@ -54,11 +61,11 @@ public class UserService {
 			User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPassword());
 			if (userDb != null) {
 				id = userDb.getId();
-			}
-			if (userDb.getRole().name().equals(Role.USER.name())) {
-				return "redirect:/user?id=" + userDb.getId();
-			} else if (userDb.getRole().name().equals(Role.ADMIN.name())) {
-				return "redirect:/admin";
+				if (userDb.getRole().name().equals(Role.USER.name())) {
+					return "redirect:/user?id=" + userDb.getId();
+				} else if (userDb.getRole().name().equals(Role.ADMIN.name())) {
+					return "redirect:/admin";
+				}
 			}
 		}
 		return "redirect:/login";

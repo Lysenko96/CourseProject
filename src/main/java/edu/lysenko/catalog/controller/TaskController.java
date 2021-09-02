@@ -10,22 +10,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.lysenko.catalog.dao.jdbc.JdbcTaskDao;
+import edu.lysenko.catalog.dao.jdbc.HibernateTaskDao;
+import edu.lysenko.catalog.dao.jdbc.HibernateUserDao;
 import edu.lysenko.catalog.entity.Task;
 import edu.lysenko.catalog.service.TaskService;
-
-import static java.util.stream.Collectors.toList;
 
 @Controller
 public class TaskController {
 
-	private JdbcTaskDao taskDao;
+	private HibernateTaskDao taskDao;
 	private TaskService taskService;
+	private HibernateUserDao userDao;
 	private static int userId;
 
-	public TaskController(JdbcTaskDao taskDao, TaskService taskService) {
+	public TaskController(HibernateTaskDao taskDao, TaskService taskService, HibernateUserDao userDao) {
 		this.taskDao = taskDao;
 		this.taskService = taskService;
+		this.userDao = userDao;
 	}
 
 	@GetMapping(value = "/task")
@@ -43,13 +44,7 @@ public class TaskController {
 	@GetMapping("/user")
 	public ModelAndView list(@RequestParam("id") int id, ModelAndView model) {
 		userId = id;
-		List<Integer> taskIds = taskDao.getAllTaskIdsByUserId(id).stream().map(userIdTaskId -> {
-			return userIdTaskId.getTaskId();
-		}).collect(toList());
-		List<Task> userTasks = taskIds.stream().map(taskId -> {
-			return taskDao.getById(taskId);
-		}).collect(toList());
-		model.addObject("listTask", userTasks);
+		model.addObject("listTask", userDao.getById(id).getTasks());
 		model.setViewName("user");
 		return model;
 	}
@@ -70,8 +65,8 @@ public class TaskController {
 	}
 
 	@GetMapping("/search")
-	public ModelAndView search(@RequestParam String keyword) {
-		List<Task> result = taskService.search(keyword, userId);
+	public ModelAndView search(@RequestParam String tag) {
+		List<Task> result = taskService.search(tag, userId);
 		ModelAndView model = new ModelAndView("search");
 		model.addObject("result", result);
 		return model;

@@ -3,19 +3,32 @@ package edu.lysenko.catalog.entity;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user")
 public class User {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String email;
 	private String password;
 	private String name;
 	private String surname;
+	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private List<Task> tasks;
 	private Role role;
-	
+
 	public User() {
 	}
-	
+
 	public User(String email, String password, String name, String surname, List<Task> tasks, Role role) {
 		this.email = email;
 		this.password = password;
@@ -26,13 +39,12 @@ public class User {
 	}
 
 	public User(int id, String email, String password, String name, String surname, List<Task> tasks, Role role) {
-		super();
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.name = name;
-		this.surname = surname;
 		this.tasks = tasks;
+		this.surname = surname;
 		this.role = role;
 	}
 
@@ -116,4 +128,5 @@ public class User {
 		return "User [id=" + id + ", email=" + email + ", password=" + password + ", name=" + name + ", surname="
 				+ surname + ", tasks=" + tasks + ", role=" + role + "]";
 	}
+
 }
