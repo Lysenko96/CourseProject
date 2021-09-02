@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -48,7 +47,6 @@ public class WebConfig implements WebMvcConfigurer {
 	}
 
 	@Bean
-	@Scope(value = "prototype")
 	public JdbcTemplate jdbcTemplate() {
 		DatabasePopulatorUtils.execute(databasePopulator(), dataSource());
 		return new JdbcTemplate(dataSource());
