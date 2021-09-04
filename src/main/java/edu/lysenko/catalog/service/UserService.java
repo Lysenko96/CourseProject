@@ -1,5 +1,8 @@
 package edu.lysenko.catalog.service;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -12,7 +15,13 @@ import edu.lysenko.catalog.entity.User;
 @Service
 public class UserService {
 
-	WebApplicationContext context;
+	static final String REDIRECT = "redirect:";
+	static final String USER = "/user?id=";
+	static final String ADMIN = "/admin";
+	private static final String REGISTER = "/register";
+	private static final String LOGIN = "/login";
+
+	private WebApplicationContext context;
 
 	private HibernateUserDao userDao;
 	private TaskService taskService;
@@ -20,7 +29,8 @@ public class UserService {
 
 	public UserService(HibernateUserDao userDao, WebApplicationContext context, TaskService taskService) {
 		this.context = context;
-		this.context.getBean(WebConfig.class).createSchema();
+		DatabasePopulatorUtils.execute(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")),
+				context.getBean(WebConfig.class).createSchema());
 		this.userDao = userDao;
 		this.taskService = taskService;
 	}
@@ -32,9 +42,9 @@ public class UserService {
 		}
 		if (user.getRole() == null || user.getPassword().isEmpty() || user.getName().isEmpty()
 				|| user.getSurname().isEmpty() || user.getEmail().isEmpty() || user.getRole().name().isEmpty()) {
-			return "redirect:/register";
+			return REDIRECT + REGISTER;
 		}
-		return "redirect:/login";
+		return REDIRECT + LOGIN;
 	}
 
 	public String update(User user) {
@@ -42,7 +52,7 @@ public class UserService {
 				&& !user.getEmail().isEmpty() && !user.getName().isEmpty() && !user.getSurname().isEmpty()) {
 			userDao.update(user);
 		}
-		return "redirect:/admin";
+		return REDIRECT + ADMIN;
 	}
 
 	public String delete(User user) {
@@ -53,22 +63,22 @@ public class UserService {
 			}
 			userDao.deleteById(userDb.getId());
 		}
-		return "redirect:/admin";
+		return REDIRECT + ADMIN;
 	}
 
 	public String authorize(User user) {
 		if (!user.getEmail().isEmpty() && !user.getPassword().isEmpty()) {
 			User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPassword());
 			if (userDb != null) {
-				id = userDb.getId();
+				setId(userDb.getId());
 				if (userDb.getRole().name().equals(Role.USER.name())) {
-					return "redirect:/user?id=" + userDb.getId();
+					return REDIRECT + USER + userDb.getId();
 				} else if (userDb.getRole().name().equals(Role.ADMIN.name())) {
-					return "redirect:/admin";
+					return REDIRECT + ADMIN;
 				}
 			}
 		}
-		return "redirect:/login";
+		return REDIRECT + LOGIN;
 	}
 
 	public static int getId() {

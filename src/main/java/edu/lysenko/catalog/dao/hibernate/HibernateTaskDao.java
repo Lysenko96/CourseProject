@@ -1,6 +1,5 @@
 package edu.lysenko.catalog.dao.hibernate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -15,34 +14,10 @@ import org.springframework.stereotype.Component;
 
 import edu.lysenko.catalog.dao.TaskDao;
 import edu.lysenko.catalog.entity.Task;
-import edu.lysenko.catalog.entity.User;
 import edu.lysenko.catalog.util.HibernateUtil;
 
 @Component
 public class HibernateTaskDao implements TaskDao {
-
-	public void deleteFromUsersTasksByTaskId(int id, int userId) {
-		Transaction transaction = null;
-		Task task = null;
-		User user = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			task = session.get(Task.class, id);
-			user = session.get(User.class, userId);
-			List<Integer> userNumberInList = new ArrayList<>();
-			for (User aUser : task.getUsers()) {
-				userNumberInList.add(task.getUsers().indexOf(aUser));
-			}
-			int index = task.getUsers().indexOf(user);
-			task.getUsers().remove((int) userNumberInList.get(index));
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			e.printStackTrace();
-		}
-	}
 
 	public List<Task> searchAllByTag(String tag) {
 		Transaction transaction = null;
@@ -166,5 +141,4 @@ public class HibernateTaskDao implements TaskDao {
 		}
 		return task;
 	}
-
 }

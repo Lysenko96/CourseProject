@@ -43,7 +43,7 @@ public class TaskController {
 
 	@GetMapping("/user")
 	public ModelAndView list(@RequestParam("id") int id, ModelAndView model) {
-		userId = id;
+		setUserId(id);
 		model.addObject("listTask", userDao.getById(id).getTasks());
 		model.setViewName("user");
 		return model;
@@ -70,6 +70,14 @@ public class TaskController {
 		ModelAndView model = new ModelAndView("search");
 		model.addObject("result", result);
 		return model;
+	}
+
+	public static int getUserId() {
+		return userId;
+	}
+
+	public static void setUserId(int userId) {
+		TaskController.userId = userId;
 	}
 
 }

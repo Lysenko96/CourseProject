@@ -1,14 +1,13 @@
 package edu.lysenko.catalog.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.ViewResolver;
@@ -40,10 +39,10 @@ public class WebConfig implements WebMvcConfigurer {
 	private String driver;
 
 	@Bean
-	public void createSchema() {
+	public DataSource createSchema() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource(url, user, passwd);
 		dataSource.setDriverClassName(driver);
-		DatabasePopulatorUtils.execute(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")), dataSource);
+		return dataSource;
 	}
 
 	@Bean
