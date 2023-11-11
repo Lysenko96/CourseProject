@@ -21,6 +21,7 @@ import edu.lysenko.catalog.util.HibernateUtil;
 @Component
 public class HibernateUserDao implements UserDao {
 
+
 	private PasswordEncoder encoder;
 
 	public HibernateUserDao(PasswordEncoder encoder) {
